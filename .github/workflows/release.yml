@@ -15,11 +15,11 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-      
+
       - name: Build with Maven
         run: mvn -B package --file pom.xml
-      
-      - name: Upload Release Asset
+
+      - name: Upload built JAR
         uses: softprops/action-gh-release@v1
         with:
-          files: target/mcdiscrosschat.jar
+          files: target/mcdiscrosschat*.jar
