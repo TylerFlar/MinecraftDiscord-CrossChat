@@ -1,0 +1,21 @@
+name: mcdiscrosschat
+main: com.tylerflar.MCDisCrossChat
+version: 1.0.0
+api-version: 1.15
+prefix: MCDisCrossChat
+authors: [ TylerFlar ]
+commands:
+  mcdiscrosschat:
+    aliases: [ mdcc ]
+    description: Tun MC Dis Cross Chat on or off
+    permission: mcDiscrossChat.default
+    permission-message: You do not have permission to use this command.
+    usage: "Usage: /<command> [on|off|enable|disable]"
+  coordinates:
+    aliases: [ coords ]
+    description: Send the player's current coordinates to chat
+    usage: "Usage: /<command> [location]"
+permissions:
+  mcDiscrossChat.default:
+    description: Gives permission to change MC Dis Cross Chat settings
+    default: op
