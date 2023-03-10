@@ -1,6 +1,6 @@
-package com.tylerflar.mcdiscrosschat.commands;
+package com.tylerflar.commands;
 
-import static com.tylerflar.mcdiscrosschat.util.Util.sendWebhookMessage;
+import static com.tylerflar.util.Util.sendWebhookMessage;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import org.json.simple.JSONObject;
 
 import com.tylerflar.MCDisCrossChat;
-import com.tylerflar.mcdiscrosschat.util.Config;
+import com.tylerflar.util.Config;
 
 import net.md_5.bungee.api.chat.TextComponent;
 
