@@ -36,7 +36,7 @@ public class PlayerDeathListener implements Listener {
 
             embed.put("title", "Player Death");
             embed.put("description", event.getDeathMessage());
-            embed.put("color", 16711680);
+            embed.put("color", 0x303030);
             embed.put("thumbnail", thumbnail);
             embeds.add(embed);
 

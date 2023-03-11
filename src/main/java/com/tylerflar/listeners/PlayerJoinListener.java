@@ -34,9 +34,9 @@ public class PlayerJoinListener implements Listener {
             JSONObject thumbnail = new JSONObject();
             thumbnail.put("url", "https://mc-heads.net/avatar/" + event.getPlayer().getName());
 
-            embed.put("title", "Player Join");
+            embed.put("title", "Player Joined");
             embed.put("description", event.getPlayer().getName() + " joined the game");
-            embed.put("color", 65280);
+            embed.put("color", 0xCDCFD0);
             embed.put("thumbnail", thumbnail);
             embeds.add(embed);
 

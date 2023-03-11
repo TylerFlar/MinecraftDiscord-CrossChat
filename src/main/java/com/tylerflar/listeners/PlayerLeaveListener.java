@@ -34,9 +34,9 @@ public class PlayerLeaveListener implements Listener {
             JSONObject thumbnail = new JSONObject();
             thumbnail.put("url", "https://mc-heads.net/avatar/" + event.getPlayer().getName());
 
-            embed.put("title", "Player Leave");
+            embed.put("title", "Player Left");
             embed.put("description", event.getPlayer().getName() + " has left the server.");
-            embed.put("color", 16711680);
+            embed.put("color", 0xBAC799);
             embed.put("thumbnail", thumbnail);
             embeds.add(embed);
 
