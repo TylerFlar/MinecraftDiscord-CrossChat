@@ -45,6 +45,7 @@ public final class MCDisCrossChat extends JavaPlugin {
 
   public void onDisable()
   {
+    // shutdown discord module
     discordModule.shutdown();
     sendServerStartStopMessage(config, "stopped");
   }
