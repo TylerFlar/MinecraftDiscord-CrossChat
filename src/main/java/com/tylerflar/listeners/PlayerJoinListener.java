@@ -36,7 +36,7 @@ public class PlayerJoinListener implements Listener {
 
             embed.put("title", "Player Join");
             embed.put("description", event.getPlayer().getName() + " joined the game");
-            embed.put("color", 0x00ff00);
+            embed.put("color", 65280);
             embed.put("thumbnail", thumbnail);
             embeds.add(embed);
 

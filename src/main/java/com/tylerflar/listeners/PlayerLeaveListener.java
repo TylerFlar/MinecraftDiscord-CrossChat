@@ -36,7 +36,7 @@ public class PlayerLeaveListener implements Listener {
 
             embed.put("title", "Player Leave");
             embed.put("description", event.getPlayer().getName() + " has left the server.");
-            embed.put("color", 0xff0000);
+            embed.put("color", 16711680);
             embed.put("thumbnail", thumbnail);
             embeds.add(embed);
 
