@@ -11,6 +11,7 @@ import com.tylerflar.util.Config;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class DiscordModule extends ListenerAdapter {
     private Config _config;
@@ -29,6 +30,7 @@ public class DiscordModule extends ListenerAdapter {
                 builder.addEventListeners(new ReadyListener());
                 builder.addEventListeners(new SlashCommandListener(_config.guildID));
                 builder.addEventListeners(messageListener);
+                builder.enableIntents(GatewayIntent.GUILD_MESSAGES);
 
                 jda = builder.build();
                 jda.awaitReady();

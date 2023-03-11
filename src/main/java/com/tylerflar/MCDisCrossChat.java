@@ -4,6 +4,8 @@ import static com.tylerflar.util.Util.sendServerStartStopMessage;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.tylerflar.commands.CommandCoordinates;
+import com.tylerflar.commands.CommandMCDisCrossChat;
 import com.tylerflar.discord.DiscordModule;
 import com.tylerflar.listeners.PlayerChatListener;
 import com.tylerflar.listeners.PlayerDeathListener;
@@ -37,10 +39,13 @@ public final class MCDisCrossChat extends JavaPlugin {
 
     discordModule = new DiscordModule(config);
 
-    
+    getCommand("mcdiscrosschat").setExecutor(new CommandMCDisCrossChat(this));
+    getCommand("coordnates").setExecutor(new CommandCoordinates(this));
   }
 
   public void onDisable()
   {
+    discordModule.shutdown();
+    sendServerStartStopMessage(config, "stopped");
   }
 }

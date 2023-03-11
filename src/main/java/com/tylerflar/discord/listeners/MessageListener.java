@@ -34,7 +34,7 @@ public class MessageListener extends ListenerAdapter{
                             attachment.append("[Attached ");
                         }
 
-                        attachment.append("an embed");
+                        attachment.append("an embed]");
                     }
 
                     for (MessageSticker sticker : event.getMessage().getStickers()) {
@@ -44,7 +44,7 @@ public class MessageListener extends ListenerAdapter{
                             attachment.append("[Attached ");
                         }
 
-                        attachment.append("a sticker");
+                        attachment.append("a sticker]");
                     }
 
                     for (ActionRow row : event.getMessage().getActionRows()) {
@@ -54,7 +54,7 @@ public class MessageListener extends ListenerAdapter{
                             attachment.append("[Attached ");
                         }
 
-                        attachment.append("an action row");
+                        attachment.append("an action row]");
                     }
 
                     for (Message.Attachment attachment2 : event.getMessage().getAttachments()) {
@@ -67,7 +67,7 @@ public class MessageListener extends ListenerAdapter{
                         attachment.append(attachment2.getContentType()).append("]");
                     }
 
-                    String message = ChatColor.DARK_AQUA + event.getAuthor().getAsTag() + ": " + ChatColor.WHITE + event.getMessage().getContentDisplay();
+                    String message = ChatColor.DARK_AQUA + event.getAuthor().getName() + ": " + ChatColor.WHITE + event.getMessage().getContentDisplay();
                     Bukkit.broadcastMessage(message + ChatColor.RED + attachment);
                 }
             }
