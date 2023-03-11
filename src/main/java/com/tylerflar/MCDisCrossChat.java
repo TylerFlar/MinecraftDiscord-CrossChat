@@ -40,7 +40,7 @@ public final class MCDisCrossChat extends JavaPlugin {
     discordModule = new DiscordModule(config);
 
     getCommand("mcdiscrosschat").setExecutor(new CommandMCDisCrossChat(this));
-    getCommand("coordnates").setExecutor(new CommandCoordinates(this));
+    getCommand("coordinates").setExecutor(new CommandCoordinates(this));
   }
 
   public void onDisable()

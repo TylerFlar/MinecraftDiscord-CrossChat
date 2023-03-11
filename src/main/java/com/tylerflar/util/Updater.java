@@ -20,11 +20,11 @@ import com.tylerflar.MCDisCrossChat;
 public class Updater {
     private Config _config;
     private MCDisCrossChat _plugin;
-    private String _apiURL = "https://api.github.com/repos/tylerflar/mcdiscrosschat/releases/latest";
+    private String _apiURL = "https://api.github.com/repos/tylerflar/MinecraftDiscord-CrossChat/releases/latest";
 
     public boolean updateAvailable;
-    public String[] currentVersion;
-    public Float newVersion;
+    public int currentVersion;
+    public int newVersion = -1;
     public String downloadURL;
     public String newFileName;
 
@@ -39,8 +39,8 @@ public class Updater {
     }
 
     public void downloadUpdate() {
-        if (newVersion != null && downloadURL != null) {
-            _plugin.getLogger().info("Downloading update...");
+        if (newVersion != -1 && downloadURL != null) {
+            _plugin.getLogger().info("Downloading update to " + newFileName + "...");
             URL url = null;
             try {
                 url = new URL(downloadURL);
@@ -56,38 +56,27 @@ public class Updater {
         }
     }
 
+    // Delete old file in plugins folder named mcdiscrosschat-x.x.x.jar where x.x.x is less than currentVersion 
     private void deleteOldFiles() {
-        File folder = new File("./plugins");
+        File folder = new File("./plugins/");
         File[] listOfFiles = folder.listFiles();
-        if (listOfFiles != null) {
-            for (File file : listOfFiles) {
-                if (file.getName().startsWith("mcdiscrosschat")) {
-                    if (file.getName().endsWith(".jar")) {
-                        if (!file.getName().endsWith(currentVersion + ".jar")) {
-                            String[] ver = file.getName().replace("mcdiscrosschat-", "").replace(".jar", "").split("\\.");
-                            if (isCurrentNewer(ver)) {
-                                file.delete();
-                                _plugin.getLogger().info("Deleted old version " + file.getName());
-                            }
-                        }
+
+        for (File file : listOfFiles) {
+            if (file.isFile()) {
+                String fileName = file.getName();
+                if (fileName.startsWith("mcdiscrosschat-") && fileName.endsWith(".jar")) {
+                    String version = fileName.replace("mcdiscrosschat-", "").replace(".jar", "");
+                    int versionInt = Integer.parseInt(version.replace(".", ""));
+                    if (versionInt < currentVersion) {
+                        file.delete();
                     }
-                } 
+                }
             }
         }
-    }
-
-    private boolean isCurrentNewer(String[] ver) {
-        if (Integer.parseInt(this.currentVersion[0]) > Integer.parseInt(ver[0])) {
-            if (Integer.parseInt(this.currentVersion[1]) > Integer.parseInt(ver[1])) {
-                return Integer.parseInt(this.currentVersion[2]) > Integer.parseInt(ver[2]);
-            }
-        }
-
-        return false;
     }
 
     public void checkForUpdates() {
-        String[] currentVersion = _plugin.getDescription().getVersion().split("\\.");
+        int currentVersion = Integer.parseInt(_plugin.getDescription().getVersion().replace(".", ""));
         setCurrentVersion(currentVersion);
 
         try {
@@ -106,9 +95,9 @@ public class Updater {
                 JSONParser parser = new JSONParser();
                 JSONObject data = (JSONObject) parser.parse(response);
 
-                Float api_version = Float.parseFloat(data.get("tag_name").toString().replace("v", ""));
+                int api_version = Integer.parseInt(data.get("tag_name").toString().replace("v", "").replace(".", ""));
 
-                if (!api_version.equals(currentVersion)) {
+                if (api_version > currentVersion) {
                     setUpdateAvailable(true);
                     setNewVersion(api_version);
 
@@ -116,7 +105,7 @@ public class Updater {
                     setDownloadURL((String) newAsset.get("browser_download_url"));
                     setNewFileName((String) newAsset.get("name"));
 
-                    _plugin.getLogger().info("Update to version " + api_version + " is available");
+                    _plugin.getLogger().info("New version available! Downloading update...");
                 }
             }
 
@@ -133,7 +122,7 @@ public class Updater {
         this.downloadURL = string;
     }
 
-    private void setNewVersion(Float newVersion2) {
+    private void setNewVersion(int newVersion2) {
         this.newVersion = newVersion2;
     }
 
@@ -141,7 +130,7 @@ public class Updater {
         this.updateAvailable = b;
     }
 
-    private void setCurrentVersion(String[] currentVersion2) {
+    private void setCurrentVersion(int currentVersion2) {
         this.currentVersion = currentVersion2;
     }
     
