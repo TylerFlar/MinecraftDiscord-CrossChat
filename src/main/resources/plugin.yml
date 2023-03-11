@@ -1,6 +1,6 @@
 name: mcdiscrosschat
 main: com.tylerflar.MCDisCrossChat
-version: 1.0.1
+version: 1.0.7
 api-version: 1.15
 prefix: MCDisCrossChat
 authors: [ TylerFlar ]
