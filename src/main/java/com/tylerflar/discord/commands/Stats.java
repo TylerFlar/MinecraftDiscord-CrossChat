@@ -37,15 +37,15 @@ public class Stats {
             .addField("Server Version", Bukkit.getVersion(), false)
             .addField("Online Players", Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers(), false)
             .setTimestamp(new Date().toInstant())
-            .setColor(0x00FF00)
+            .setColor(0xB7B9BB)
             .setThumbnail(icon_url);
 
         MessageBuilder message = new MessageBuilder().setEmbeds(embed.build());
 
         if (icon.exists()) {
-            event.reply(message.build()).addFile(icon, "server-icon.png").queue();
+            event.reply(message.build()).addFile(icon, "server-icon.png").setEphemeral(true).queue();
         } else {
-            event.reply(message.build()).queue();
+            event.reply(message.build()).setEphemeral(true).queue();
         }
     }
 }

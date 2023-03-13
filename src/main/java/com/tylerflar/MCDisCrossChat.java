@@ -35,7 +35,7 @@ public final class MCDisCrossChat extends JavaPlugin {
     getServer().getPluginManager().registerEvents(playerLeaveListener, this);
     getServer().getPluginManager().registerEvents(playerDeathListener, this);
 
-    sendServerStartStopMessage(config, "started");
+    sendServerStartStopMessage(config, "start");
 
     discordModule = new DiscordModule(config);
 
@@ -47,6 +47,6 @@ public final class MCDisCrossChat extends JavaPlugin {
   {
     // shutdown discord module
     discordModule.shutdown();
-    sendServerStartStopMessage(config, "stopped");
+    sendServerStartStopMessage(config, "stop");
   }
 }

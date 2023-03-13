@@ -37,12 +37,12 @@ public class Util {
 
         if (event.equals("start")) {
             embed.put("title", "Server Started");
-            embed.put("description", "Server started at " + config.serverName);
-            embed.put("color", 0x00ff00);
+            embed.put("description", "Server started!");
+            embed.put("color", 0xB1BAA1);
         } else if (event.equals("stop")) {
             embed.put("title", "Server Stopped");
-            embed.put("description", "Server stopped at " + config.serverName);
-            embed.put("color", 0xff0000);
+            embed.put("description", "Server stopped!");
+            embed.put("color", 0xDD9597);
         }
 
         embeds.add(embed);
