@@ -23,8 +23,8 @@ public class Updater {
     private String _apiURL = "https://api.github.com/repos/tylerflar/MinecraftDiscord-CrossChat/releases/latest";
 
     public boolean updateAvailable;
-    public int currentVersion;
-    public int newVersion = -1;
+    public String currentVersion;
+    public String newVersion;
     public String downloadURL;
     public String newFileName;
 
@@ -39,7 +39,7 @@ public class Updater {
     }
 
     public void downloadUpdate() {
-        if (newVersion != -1 && downloadURL != null) {
+        if (newVersion != null && downloadURL != null) {
             _plugin.getLogger().info("Downloading update to " + newFileName + "...");
             URL url = null;
             try {
@@ -66,8 +66,7 @@ public class Updater {
                 String fileName = file.getName();
                 if (fileName.startsWith("mcdiscrosschat-") && fileName.endsWith(".jar")) {
                     String version = fileName.replace("mcdiscrosschat-", "").replace(".jar", "");
-                    int versionInt = Integer.parseInt(version.replace(".", ""));
-                    if (versionInt < currentVersion) {
+                    if (isNewerVersion(currentVersion, version)) {
                         file.delete();
                     }
                 }
@@ -76,7 +75,7 @@ public class Updater {
     }
 
     public void checkForUpdates() {
-        int currentVersion = Integer.parseInt(_plugin.getDescription().getVersion().replace(".", ""));
+        String currentVersion = _plugin.getDescription().getVersion();
         setCurrentVersion(currentVersion);
 
         try {
@@ -95,9 +94,9 @@ public class Updater {
                 JSONParser parser = new JSONParser();
                 JSONObject data = (JSONObject) parser.parse(response);
 
-                int api_version = Integer.parseInt(data.get("tag_name").toString().replace("v", "").replace(".", ""));
+                String api_version = data.get("tag_name").toString().replace("v", "");
 
-                if (api_version > currentVersion) {
+                if (isNewerVersion(api_version, currentVersion)) {
                     setUpdateAvailable(true);
                     setNewVersion(api_version);
 
@@ -114,6 +113,20 @@ public class Updater {
         }
     }
 
+    //Helper funciton to check if versionA is newer than versionB in the format xx.xx.xx
+    public static boolean isNewerVersion(String versionA, String versionB) {
+        String[] versionAArray = versionA.split("\\.");
+        String[] versionBArray = versionB.split("\\.");
+        for (int i = 0; i < versionAArray.length; i++) {
+            if (Integer.parseInt(versionAArray[i]) > Integer.parseInt(versionBArray[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    
+
     private void setNewFileName(String string) {
         this.newFileName = string;
     }
@@ -122,16 +135,16 @@ public class Updater {
         this.downloadURL = string;
     }
 
-    private void setNewVersion(int newVersion2) {
-        this.newVersion = newVersion2;
+    private void setNewVersion(String string) {
+        this.newVersion = string;
     }
 
     private void setUpdateAvailable(boolean b) {
         this.updateAvailable = b;
     }
 
-    private void setCurrentVersion(int currentVersion2) {
-        this.currentVersion = currentVersion2;
+    private void setCurrentVersion(String string) {
+        this.currentVersion = string;
     }
     
 }

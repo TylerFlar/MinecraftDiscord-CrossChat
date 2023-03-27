@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.tylerflar.commands.CommandCoordinates;
 import com.tylerflar.commands.CommandMCDisCrossChat;
 import com.tylerflar.discord.DiscordModule;
+import com.tylerflar.listeners.PlayerAchievementListener;
 import com.tylerflar.listeners.PlayerChatListener;
 import com.tylerflar.listeners.PlayerDeathListener;
 import com.tylerflar.listeners.PlayerJoinListener;
@@ -25,11 +26,13 @@ public final class MCDisCrossChat extends JavaPlugin {
   @Override
   public void onEnable()
   {
+    PlayerAchievementListener playerAchievementListener = new PlayerAchievementListener(this);
     PlayerChatListener playerChatListener = new PlayerChatListener(this);
     PlayerJoinListener playerJoinListener = new PlayerJoinListener(this);
     PlayerLeaveListener playerLeaveListener = new PlayerLeaveListener(this);
     PlayerDeathListener playerDeathListener = new PlayerDeathListener(this);
 
+    getServer().getPluginManager().registerEvents(playerAchievementListener, this);
     getServer().getPluginManager().registerEvents(playerChatListener, this);
     getServer().getPluginManager().registerEvents(playerJoinListener, this);
     getServer().getPluginManager().registerEvents(playerLeaveListener, this);
