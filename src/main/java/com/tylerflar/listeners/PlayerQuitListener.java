@@ -4,19 +4,19 @@ import static com.tylerflar.util.Util.sendWebhookMessage;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerAdvancementDoneEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.tylerflar.MCDisCrossChat;
 
-public class PlayerAchievementListener implements Listener {
+public class PlayerQuitListener implements Listener {
     private boolean _enabled = true;
     private String _webhoString;
     private String _serverName;
     private String _serverIcon;
 
-    public PlayerAchievementListener(MCDisCrossChat plugin) {
+    public PlayerQuitListener(MCDisCrossChat plugin) {
         this._enabled = plugin.config.enabled;
         this._webhoString = plugin.config.eventsWebhookUrl;
         this._serverName = plugin.config.serverName;
@@ -24,7 +24,7 @@ public class PlayerAchievementListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerAchievement(PlayerAdvancementDoneEvent event) {
+    public void onPlayerLeave(PlayerQuitEvent event) {
         if (_enabled) {
             JSONObject json = new JSONObject();
             json.put("content", "");
@@ -34,9 +34,9 @@ public class PlayerAchievementListener implements Listener {
             JSONObject thumbnail = new JSONObject();
             thumbnail.put("url", "https://mc-heads.net/avatar/" + event.getPlayer().getName());
 
-            embed.put("title", "Player Achievement");
-            embed.put("description", event.getPlayer().getName() + " has completed the advancement " + event.getAdvancement().getKey().getKey() + ".");
-            embed.put("color", 0x8B9592);
+            embed.put("title", "Player Quit");
+            embed.put("description", event.getPlayer().getName() + " quit the server!");
+            embed.put("color", 0xBAC799);
             embed.put("thumbnail", thumbnail);
             embeds.add(embed);
 
